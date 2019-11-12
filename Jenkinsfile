@@ -20,7 +20,6 @@ pipeline {
         stage('Build Jar'){
              steps{
                 echo 'Building the jar..'
-                echo "Maven Home = ${MAVEN_HOME}"
                 echo "Maven Home2 = ${M2_HOME}"
              }
         }
