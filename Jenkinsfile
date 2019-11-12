@@ -1,6 +1,9 @@
 pipeline {
   agent any
        environment{
+           dockerHubRegistry = 'mrdeo/spring-cicd'
+           dockerImage = ''
+
           }
      stages {
         stage('Init'){
