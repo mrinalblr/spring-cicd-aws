@@ -2,7 +2,6 @@ pipeline {
   agent any
        environment{
            dockerHubRegistry = 'mrdeo/spring-cicd-aws'
-           dockerHubRegistry = 'mrdeo/spring-cicd'
            dockerHubCredentials = 'dockerhubcred'
            dockerImage = ''
 
