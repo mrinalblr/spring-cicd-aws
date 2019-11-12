@@ -21,8 +21,10 @@ pipeline {
              steps{
                 echo 'Building the jar..'
                 sh 'mvn -version'
+                sh 'mvn clean package '
              }
         }
+       
      }
 
   }
