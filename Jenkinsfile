@@ -34,6 +34,15 @@ pipeline {
 
                         }
          }
+         stage('Publishing to Docker Hub'){
+                        steps{
+                            echo 'Publishing the image to docker hub'
+                            script{
+                                docker.withRegistry('',dockerHubCredentials)
+                                dockerImage.push()
+                            }
+                        }
+         }
 
      }
 
