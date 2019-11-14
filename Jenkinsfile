@@ -45,6 +45,13 @@ pipeline {
                             }
                         }
          }
+         stage('Deploying the image'){
+                        steps{
+                            echo 'Deploying the docker image'
+                            echo "${dockerImage}"
+                            sh "docker run -d -p 8083:8082 --name spring-cicd-aws mrdeo/spring-cicd-aws:latest"
+                        }
+         }
 
      }
 
