@@ -50,8 +50,11 @@ pipeline {
                             echo 'Deploying the docker image'
                             echo "${dockerImage}"
                             sh "docker run -d -p 8083:8082 --name spring-cicd-aws mrdeo/spring-cicd-aws:latest"
+                            echo 'Successfully deployed'
+                            echo 'http://13.233.131.249:8083/api/healthcheck'
                         }
          }
+
 
      }
 
