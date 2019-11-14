@@ -38,8 +38,10 @@ pipeline {
                         steps{
                             echo 'Publishing the image to docker hub'
                             script{
-                                docker.withRegistry('',dockerHubCredentials)
-                                dockerImage.push()
+                                docker.withRegistry('',dockerHubCredentials){
+                                    dockerImage.push()
+                                }
+
                             }
                         }
          }
