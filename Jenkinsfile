@@ -25,6 +25,13 @@ pipeline {
                 sh 'mvn clean package '
              }
         }
+         stage('Remove unused images'){
+             steps{
+                 echo 'Cleaning up the volume by removing unused and unwanted docker images..'
+                 sh 'docker system prune -a'
+             }
+
+         }
         stage('Building Image'){
                         steps{
                             echo 'Building the docker image'
