@@ -41,6 +41,10 @@ public class UserController {
         receivedUser = user;
         return new ResponseEntity<GenericResponse>(new GenericResponse(200,"Login Successful",receivedUser),HttpStatus.OK);
     }
+    @GetMapping("/logout")
+    public ResponseEntity<GenericResponse> logout(){
+        return new ResponseEntity<GenericResponse>(new GenericResponse(200,"Login Successful",null),HttpStatus.OK);
+    }
     @GetMapping("/healthcheck")
     public ResponseEntity<GenericResponse> healthcheck(){
         return new ResponseEntity<GenericResponse>(new GenericResponse(200,"Application is up and running",null),HttpStatus.OK);
