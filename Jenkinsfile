@@ -28,7 +28,7 @@ pipeline {
          stage('Remove unused images'){
              steps{
                  echo 'Cleaning up the volume by removing unused and unwanted docker images..'
-                 sh 'docker system prune -a'
+                 sh 'docker system prune -a -f'
              }
 
          }
