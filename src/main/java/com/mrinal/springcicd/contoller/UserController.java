@@ -5,9 +5,8 @@ import com.mrinal.springcicd.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sun.reflect.generics.factory.GenericsFactory;
 
 import java.util.ArrayList;
 
@@ -35,6 +34,12 @@ public class UserController {
 
 
        return new ResponseEntity<GenericResponse>(userResponse, HttpStatus.OK);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<GenericResponse> login(@RequestBody User user){
+        User receivedUser = new User();
+        receivedUser = user;
+        return new ResponseEntity<GenericResponse>(new GenericResponse(200,"Login Successful",receivedUser),HttpStatus.OK);
     }
     @GetMapping("/healthcheck")
     public ResponseEntity<GenericResponse> healthcheck(){

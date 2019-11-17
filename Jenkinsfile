@@ -25,6 +25,13 @@ pipeline {
                 sh 'mvn clean package '
              }
         }
+         stage('Remove unused images'){
+             steps{
+                 echo 'Cleaning up the volume by removing unused and unwanted docker images..'
+                 sh 'docker system prune -a'
+             }
+
+         }
         stage('Building Image'){
                         steps{
                             echo 'Building the docker image'
@@ -50,8 +57,11 @@ pipeline {
                             echo 'Deploying the docker image'
                             echo "${dockerImage}"
                             sh "docker run -d -p 8083:8082 --name spring-cicd-aws mrdeo/spring-cicd-aws:latest"
+                            echo 'Successfully deployed'
+                            echo 'http://13.233.131.249:8083/api/healthcheck'
                         }
          }
+
 
      }
 
