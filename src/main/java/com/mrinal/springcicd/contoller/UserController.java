@@ -2,13 +2,17 @@ package com.mrinal.springcicd.contoller;
 
 import com.mrinal.springcicd.model.GenericResponse;
 import com.mrinal.springcicd.model.User;
+import com.mrinal.springcicd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sun.net.www.content.text.Generic;
 import sun.reflect.generics.factory.GenericsFactory;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -16,24 +20,28 @@ public class UserController {
 
     @Autowired
     private GenericResponse userResponse;
+    @Autowired
+    private UserService userService;
+    private List<User> usersList = new ArrayList<User>();
 
     @GetMapping("/users")
     public  ResponseEntity<GenericResponse> getUsers(){
-         User user =  new User();
-         user.setName("Mrinal Deo");
-         user.setContactNo("7358411170");
-         user.setEmailId("mrinal.deo@gmail.com");
-         ArrayList<String> userAddress = new ArrayList<>();
-         userAddress.add("Flat-111,ABC APARTMENT,XYZ LANE,BENEGALURU-560001.");
-        userAddress.add("Flat-201,DEF APARTMENT,ABC LANE,RANCHI.");
-         user.setAddress(userAddress);
 
-         userResponse.setData(user);
-         userResponse.setMessage("Address fetched successfully");
+         userResponse.setData(usersList);
+         userResponse.setMessage("User details fetched successfully");
          userResponse.setStatus(200);
 
-
        return new ResponseEntity<GenericResponse>(userResponse, HttpStatus.OK);
+    }
+    @PostMapping("/users/create")
+    public ResponseEntity<GenericResponse> addUsers(@Valid @RequestBody User user){
+        if(userService.validateEmailUnique(user,usersList) == false){
+            return new ResponseEntity<GenericResponse>(new GenericResponse(200,"Email id Should be unique.try changing the email id.",null),HttpStatus.BAD_REQUEST);
+        }else{
+            usersList.add(user);
+            return new ResponseEntity<GenericResponse>(new GenericResponse(200,"User created successfully",null),HttpStatus.CREATED);
+        }
+
     }
     @PostMapping("/login")
     public ResponseEntity<GenericResponse> login(@RequestBody User user){

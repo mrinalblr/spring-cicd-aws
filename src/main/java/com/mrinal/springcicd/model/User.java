@@ -1,11 +1,15 @@
 package com.mrinal.springcicd.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class User {
+    @NotNull
     private String name;
     private List<String> address;
+    @NotNull
     private String contactNo;
+    @NotNull
     private String emailId;
 
     public User(String name, List<String> address, String contactNo, String emailId) {
