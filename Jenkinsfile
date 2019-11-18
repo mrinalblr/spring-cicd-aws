@@ -7,24 +7,11 @@ pipeline {
 
           }
      stages {
-        stage('Init'){
-           steps{
-              echo 'Initializing the pipeline'
-           }
-        }
-        stage('Checkout SCM'){
-            steps{
-                echo 'Checking out the SCM for latest Codebase'
-                git 'https://github.com/mrinalblr/spring-cicd-aws.git'
-            }
-        }
-        stage('Build Jar'){
-             steps{
-                echo 'Building the jar..'
-                sh 'mvn -version'
-                sh 'mvn clean package '
+         stage('Clean Workspace') {
+             steps {
+                 deleteDir()
              }
-        }
+         }
          stage('Remove unused images'){
              steps{
                  echo 'Cleaning up the volume by removing unused and unwanted docker images..'
@@ -32,6 +19,19 @@ pipeline {
              }
 
          }
+        stage('Checkout SCM'){
+            steps{
+                echo 'Checking out the SCM for latest Codebase'
+                git 'https://github.com/mrinalblr/spring-cicd-aws.git'
+            }
+        }
+        stage('Build Jar') {
+            steps {
+                echo 'Building the jar..'
+                sh 'mvn -version'
+                sh 'mvn clean package '
+            }
+        }
         stage('Building Image'){
                         steps{
                             echo 'Building the docker image'
